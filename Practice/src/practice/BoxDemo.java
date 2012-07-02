@@ -51,6 +51,8 @@ class WeightedBox extends Box{
     double density(){
         return this.weight/this.volume();
     }
+    
+    @Override
     public String toString(){
         String out=super.toString()+" Weight : "+this.weight;
         return out;
