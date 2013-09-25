@@ -106,7 +106,7 @@ void bfsFromGoal( char *goal, int limit ){
         Queue.pop_front();
     }
     
-    printf("%lld states with limit %d\n", count, limit);
+    //printf("%lld states with limit %d\n", count, limit);
 }
 
 int main(){

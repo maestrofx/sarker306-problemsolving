@@ -13,6 +13,37 @@ resist list[60];
 double mat[100][100], A[100][100], B[100], X[100];
 int pi[100], x, y, n;
 
+void LUP_Decomp(){
+	int i, j, k, k1;
+	double p, absol;
+
+	for(i=0;i<n;i++)  pi[i]=i;
+
+	for(k=0;k<n;k++){
+		p=0;
+		for(i=k, k1=i;i<n;i++){
+			absol=A[i][k];
+			if(absol<0) absol=-absol;
+			if(absol>p) p=absol, k1=i;
+		}
+
+        if( fabs(p) < 1e-6) printf("Error!\n");
+		if(k!=k1) pi[k]^=pi[k1]^=pi[k]^=pi[k1];
+
+		for(i=0;i<n;i++){
+			p=A[k][i];
+			A[k][i]=A[k1][i];
+			A[k1][i]=p;
+		}
+
+		for(i=k+1;i<n;i++){
+			A[i][k]=A[i][k]/A[k][k];
+
+			for(j=k+1;j<n;j++) A[i][j]=A[i][j]-A[i][k]*A[k][j];
+		}
+	}
+}
+
 void LUP_Solve(int n){
     int i, j;
 	double y[66];
@@ -80,8 +111,8 @@ void preprocess(int m){
 		}
 	}
 
-	/*for(i=0;i<m;i++) printf("%d  %d  %lf\n", list[i].u, list[i].v, list[i].w);
-	puts("");*/
+	for(i=0;i<m;i++) printf("%d  %d  %lf\n", list[i].u, list[i].v, list[i].w);
+	puts("");
 }
 
 void init(){
